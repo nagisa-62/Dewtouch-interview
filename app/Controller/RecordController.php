@@ -7,7 +7,7 @@
 			
 			$this->setFlash('Listing Record page too slow, try to optimize it.');
 			
-			
+			$this->Record->recursive = -1;
 			$records = $this->Record->find('all');
 			
 			$this->set('records',$records);
