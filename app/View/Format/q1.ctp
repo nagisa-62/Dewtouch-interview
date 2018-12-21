@@ -2,7 +2,7 @@
 <div id="message1">
 
 
-<?php echo $this->Form->create('Type',array('id'=>'form_type','type'=>'file','class'=>'','method'=>'POST','autocomplete'=>'off','inputDefaults'=>array(
+<?php echo $this->Form->create('Type',array('id'=>'form_type','type'=>'file','url'=>array('controller'=>'Format','action'=>'q1_result'),'class'=>'','method'=>'POST','autocomplete'=>'off','inputDefaults'=>array(
 				
 				'label'=>false,'div'=>false,'type'=>'text','required'=>false)))?>
 	
@@ -10,21 +10,18 @@
 <br><br>
 
 <?php $options_new = array(
- 		'Type1' => __('<span class="showDialog" data-id="dialog_1" style="color:blue">Type1</span><div id="dialog_1" class="hide dialog" title="Type 1">
- 				<span style="display:inline-block"><ul><li>Description .......</li>
- 				<li>Description 2</li></ul></span>
- 				</div>'),
-		'Type2' => __('<span class="showDialog" data-id="dialog_2" style="color:blue">Type2</span><div id="dialog_2" class="hide dialog" title="Type 2">
- 				<span style="display:inline-block"><ul><li>Desc 1 .....</li>
- 				<li>Desc 2...</li></ul></span>
- 				</div>')
+		'Type1' => __('<span id="dialog_1" class="custom-tip" style="color:blue" data-html="true" data-placement="right" 
+			title="<ul><li>Description .......</li><li>Description 2</li></ul>">Type1</span>'),
+		'Type2' => __('<span id="dialog_2" class="custom-tip" style="color:blue" data-html="true" data-placement="right" 
+			title="<ul><li>Desc 1 .....</li><li>Desc 2...</li></ul>">Type2</span>'),
+		'Type3' => __('<span id="dialog_3" class="custom-tip" style="color:blue" data-html="true" data-placement="right" 
+			title="<ul><li>Test Desc...</li></ul>">Type3</span>')
 		);?>
 
 <?php echo $this->Form->input('type', array('legend'=>false, 'type' => 'radio', 'options'=>$options_new,'before'=>'<label class="radio line notcheck">','after'=>'</label>' ,'separator'=>'</label><label class="radio line notcheck">'));?>
 
 
-<?php echo $this->Form->end();?>
-
+<?php echo $this->Form->end('Save');?>
 </div>
 
 <style>
@@ -41,8 +38,19 @@
 	font-weight: bold;
 }
 
+.ui-tooltip-test {background:red;color:white;}
+
 .wrap {
 	white-space: pre-wrap;
+}
+
+.custom-tip + .tooltip .tooltip-inner {
+	background-color: #EEEEEE;
+	color: black;
+}
+
+.custom-tip + .tooltip.right .tooltip-arrow {
+  border-right-color: #EEEEEE;
 }
 
 </style>
@@ -51,16 +59,9 @@
 <script>
 
 $(document).ready(function(){
-	$(".dialog").dialog({
-		autoOpen: false,
-		width: '500px',
-		modal: true,
-		dialogClass: 'ui-dialog-blue'
-	});
-
-	
-	$(".showDialog").click(function(){ var id = $(this).data('id'); $("#"+id).dialog('open'); });
-
+	$("#dialog_1").tooltip();
+	$("#dialog_2").tooltip();
+	$("#dialog_3").tooltip();
 })
 
 
