@@ -13,10 +13,20 @@
 		<h3>Import Form</h3>
 	</div>
 <?php
-echo $this->Form->create('FileUpload');
+echo $this->Form->create('FileUpload', array('enctype' => 'multipart/form-data', 'url' =>array('controller'=>'FileUpload','action'=>'index'),'type' => 'post'));
 echo $this->Form->input('file', array('label' => 'File Upload', 'type' => 'file'));
 echo $this->Form->submit('Upload', array('class' => 'btn btn-primary'));
 echo $this->Form->end();
+
+if (isset($result)) {
+		if($result){
+			echo '<div class="alert alert-success">'. $message .'</div>';
+		}
+		else {
+			echo '<div class="alert alert-danger">'. $message .'</div>';
+		}
+}
+
 ?>
 
 	<hr />
