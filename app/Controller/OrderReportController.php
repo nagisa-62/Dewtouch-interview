@@ -15,25 +15,28 @@
 
 
 			// To Do - write your own array in this format
-			$order_reports = array('Order 1' => array(
-										'Ingredient A' => 1,
-										'Ingredient B' => 12,
-										'Ingredient C' => 3,
-										'Ingredient G' => 5,
-										'Ingredient H' => 24,
-										'Ingredient J' => 22,
-										'Ingredient F' => 9,
-									),
-								  'Order 2' => array(
-								  		'Ingredient A' => 13,
-								  		'Ingredient B' => 2,
-								  		'Ingredient G' => 14,
-								  		'Ingredient I' => 2,
-								  		'Ingredient D' => 6,
-								  	),
-								);
+			$order_reports = array();
 
-			// ...
+			foreach ($orders as $order) {
+				$orderName = $order['Order']['name'];
+				$order_reports[$orderName] = array();
+				foreach ($order['OrderDetail'] as $orderDetail) {
+					foreach ($portions as  $portion) {
+						if ($orderDetail['Item']['name'] == $portion['Item']['name']) {
+							foreach ($portion['PortionDetail'] as $portionDetail) {
+								$ingredientName = $portionDetail['Part']['name'];
+								if(array_key_exists($ingredientName, $order_reports[$orderName])) {
+									$addValue = $portionDetail['value'] * $orderDetail['quantity'];
+									$order_reports[$orderName][$ingredientName] += $addValue;
+								} else {
+									$inputValue = $portionDetail['value'] * $orderDetail['quantity'];
+									$order_reports[$orderName][$ingredientName] = $inputValue;
+								} 
+							}
+						}
+					}
+				} 
+			}
 
 			$this->set('order_reports',$order_reports);
 
