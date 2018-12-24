@@ -4,4 +4,4 @@ uploads
 vendor
 app/webroot/upload
 app/tmp/*
-webroot/upload_csv/*
+app/webroot/upload_csv/*

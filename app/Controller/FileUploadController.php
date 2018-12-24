@@ -11,19 +11,15 @@ class FileUploadController extends AppController {
 				$uploadpath = $uploaddir . $uploadfile;
 				if(move_uploaded_file($this->request->data['FileUpload']['file']['tmp_name'], $uploadpath)) {
 					if($this->FileUpload->save(['name'=>$uploadfile, 'email'=>'test@test.com'], ['validate' => false])) {
-						$this->set('result',true);
-						$this->set('message', 'Updated Successfully');
+						$this->Session->setFlash('Updated Successfully','default',array('class' => 'alert alert-success'),'result');
 					} else {
-						$this->set('result',false);
-						$this->set('message', 'DB save error');
+						$this->Session->setFlash('DB save error','default',array('class' => 'alert alert-danger'),'result');
 					}
 				} else {
-					$this->set('result',false);
-					$this->set('message', 'File moving error');
+					$this->Session->setFlash('File moving error','default',array('class' => 'alert alert-danger'),'result');
 				}
 			} else {
-				$this->set('result',false);
-				$this->set('message', 'Validation error');
+				$this->Session->setFlash('Validation error','default',array('class' => 'alert alert-danger'),'result');
 			}
 		}
 

@@ -17,15 +17,7 @@ echo $this->Form->create('FileUpload', array('enctype' => 'multipart/form-data',
 echo $this->Form->input('file', array('label' => 'File Upload', 'type' => 'file'));
 echo $this->Form->submit('Upload', array('class' => 'btn btn-primary'));
 echo $this->Form->end();
-
-if (isset($result)) {
-		if($result){
-			echo '<div class="alert alert-success">'. $message .'</div>';
-		}
-		else {
-			echo '<div class="alert alert-danger">'. $message .'</div>';
-		}
-}
+echo $this->Session->flash('result');
 
 ?>
 
